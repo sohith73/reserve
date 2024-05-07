@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const Reservation = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,10 +14,12 @@ const Reservation = () => {
   const [time, setTime] = useState("");
   const [phone, setPhone] = useState(0);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleReservation = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/reservation/send",
         { firstName, lastName, email, phone, date, time },
@@ -30,10 +33,11 @@ const Reservation = () => {
       toast.success(data.message);
       setFirstName("");
       setLastName("");
-      setPhone(0);
+      setPhone("");
       setEmail("");
       setTime("");
       setDate("");
+      setLoading(false);
       navigate("/success");
     } catch (error) {
       toast.error(error.response.data.message);
@@ -41,6 +45,8 @@ const Reservation = () => {
   };
 
   return (
+    <>
+    {loading ? <Loading /> : null}
     <section className="reservation" id="reservation">
       <div className="container">
         <div className="banner">
@@ -105,6 +111,7 @@ const Reservation = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
