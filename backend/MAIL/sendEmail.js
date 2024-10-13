@@ -2,7 +2,7 @@ function generateRandomNumber() {
   return Math.floor(Math.random() * 16) + 1;
 }
 const randomNumber = generateRandomNumber();
-export const sendTable = (Name, Time) => {
+export const sendTable = (Name, Time,table) => {
   const num = generateRandomNumber();
   const op = randomNumber; return `
      <!DOCTYPE html>
@@ -57,7 +57,7 @@ export const sendTable = (Name, Time) => {
     <h1>Reservation Confirmation</h1>
     <p>Dear ${Name},</p>
     <p>Your reservation at CheckInnEase has been confirmed!</p>
-    <p>Your table number is: <strong>${op}</strong></p>
+    <p>Your table number is: <strong>${table}</strong></p>
     <p>Your Time is: <strong>${Time}</strong></p>
     <p>We look forward to welcoming you at our restaurant. If you have any questions or need to make changes to your reservation, feel free to contact us.</p>
     <a href="#" class="button">Visit Our Website</a>
@@ -68,8 +68,7 @@ export const sendTable = (Name, Time) => {
 `;
 }
 
-export const sendToOwner = ( Time) => {
-  const op = randomNumber; 
+export const sendToOwner = ( Time,table) => {
   return `
   <!DOCTYPE html>
 <html lang="en">
@@ -123,7 +122,7 @@ export const sendToOwner = ( Time) => {
  <h1>Reservation Received </h1>
  <p>Hi sohith you got an Reservation,</p>
  <p>Your Hurry up and clean it!</p>
- <p>Reserved table number is: <strong>${op}</strong></p>
+ <p>Reserved table number is: <strong>${table}</strong></p>
  <p>Reserved Time is: <strong>${Time}</strong></p>
  <p>Give them a best experience </p>
  <a href="#" class="button">Say NO!</a>

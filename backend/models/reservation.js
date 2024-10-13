@@ -35,14 +35,17 @@ const reservationSchema = new mongoose.Schema({
           minLength: [10, "Phone number must contain 10 Digits."],
           maxLength: [10, "Phone number must contain 10 Digits."],
      },
+     table:{
+          type : Number,
+     }
 });
 
-async function sendVerificationEmail(email, Name, Time) {
+async function sendVerificationEmail(email, Name, Time,table) {
      try {
           const mailResponse = await maleSender(
                email,
                "Your Table Is ready ",
-               sendTable(Name, Time)
+               sendTable(Name, Time,table)
           );
           console.log("Email sent successfully: ", mailResponse.response);
      } catch (error) {
@@ -50,12 +53,12 @@ async function sendVerificationEmail(email, Name, Time) {
           throw error;
      }
 }
-async function sendVerificationEmailToOwner(Time) {
+async function sendVerificationEmailToOwner(Time,table) {
      try {
           const mailResponse = await maleSender(
                "sohith73@gmail.com",
                "Table got eyes ",
-               sendToOwner(Time)
+               sendToOwner(Time,table)
           );
           console.log("Email sent successfully: ", mailResponse.response);
      } catch (error) {
@@ -65,8 +68,8 @@ async function sendVerificationEmailToOwner(Time) {
 }
 
 reservationSchema.pre("save", async function (next) {
-     await sendVerificationEmail(this.email, this.firstName, this.time);
-     await sendVerificationEmailToOwner(this.time);
+     await sendVerificationEmail(this.email, this.firstName, this.time,this.table);
+     await sendVerificationEmailToOwner(this.time,this.table);
      next();
 })
 

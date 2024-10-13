@@ -8,8 +8,9 @@ const NotFound = () => {
       <section className="notFound">
         <div className="container">
           <img src="/notFound.svg" alt="notFound" />
-          <h1>LOOKS LIKE YOU'RE LOST</h1>
-          <p>We can't seem to find you the page you're looking for</p>
+          <h1>LOOKS LIKE THE TABLE IS BOOKED</h1>
+          <p>Please book in another time slots</p>
+          <p> Thank you - Team SKHC</p>
           <Link to={"/"}>
             Back to Home{" "}
             <span>

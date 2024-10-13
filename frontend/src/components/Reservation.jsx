@@ -18,11 +18,13 @@ const Reservation = () => {
 
   const handleReservation = async (e) => {
     e.preventDefault();
+    const table =  Math.floor(Math.random() * 10) + 1
+    console.log(table+"OPPOPPO")
     try {
       setLoading(true);
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/reservation/send",
-        { firstName, lastName, email, phone, date, time },
+        { firstName, lastName, email, phone, date, time , table },
         {
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +40,7 @@ const Reservation = () => {
       setTime("");
       setDate("");
       setLoading(false);
-      navigate("/success");
+      navigate(`/success/:${table}`);
     } catch (error) {
       toast.error(error.response.data.message);
     }
